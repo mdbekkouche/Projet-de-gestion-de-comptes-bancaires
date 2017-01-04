@@ -1,8 +1,8 @@
 package com.gestion.banque.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
