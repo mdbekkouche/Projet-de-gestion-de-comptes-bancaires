@@ -66,5 +66,10 @@ public class Operation implements Serializable {
 		this.montant = montant;
 	}
 	
+    @Override
+	public String toString() {
+		return this.getClass().getSimpleName();
+	}
+	
 
 }

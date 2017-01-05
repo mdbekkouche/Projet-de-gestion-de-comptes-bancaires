@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+div {
+	border: 1px dotted gray;
+	padding: 10px;
+	margin: 10px;
+}
+
+.tab1 th{
+	border: 1px dotted gray;
+	background: pink;
+	padding: 5px
+}
+
+.tab1 td{
+	border: 1px dotted gray;
+	background: white;
+	padding: 5px
+}

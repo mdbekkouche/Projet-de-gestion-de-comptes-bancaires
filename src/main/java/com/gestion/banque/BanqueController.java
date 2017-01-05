@@ -1,5 +1,7 @@
 package com.gestion.banque;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gestion.banque.entities.Compte;
+import com.gestion.banque.entities.Operation;
 import com.gestion.banque.metier.IBanqueMetier;
 import com.gestion.banque.model.BanqueForm;
 
@@ -33,11 +36,37 @@ public class BanqueController {
 			Compte compte = metier.consulterCompte(bf.getCode());
 			bf.setTypeCompte(compte.getClass().getSimpleName());
 			bf.setCompte(compte);
+			List<Operation> ops = metier.consulterOperations(bf.getCode());
+			bf.setOperations(ops);
 		} catch (Exception e) {
 			bf.setException(e.getMessage());
 		}
 		model.addAttribute("banqueForm", bf);
 		return "banque";
 	}
+	
+	@RequestMapping(value="/saveOperation")
+	public String saveOperation(BanqueForm bf) {
+		if (bf.getAction() != null) {
+			if (bf.getTypeOperation().equals("VERSEMENT")) {
+				metier.verser(bf.getMontant(), bf.getCode(), 1L);
+			} else if (bf.getTypeOperation().equals("RETRAIT")) {
+				metier.retirer(bf.getMontant(), bf.getCode(), 1L);
+			} else if (bf.getTypeOperation().equals("VIREMENT")) {
+				metier.virement(bf.getMontant(), bf.getCode(), bf.getCode2(),
+						1L);
+			}
+		}
+		try {
+			Compte compte = metier.consulterCompte(bf.getCode());
+			bf.setTypeCompte(compte.getClass().getSimpleName());
+			bf.setCompte(compte);
+			List<Operation> ops = metier.consulterOperations(bf.getCode());
+			bf.setOperations(ops);
+		} catch (Exception e) {
+			bf.setException(e.getMessage());
+		}
+		return "banque";
+    }
 
 }
