@@ -76,9 +76,11 @@ public class BanqueDaoImplementation implements IBanqueDao {
 	}
 
 	@Override
-	public List<Operation> consulterOperations(String codeCpte) {
-		Query req = em.createQuery("select o from Operation o where o.compte.codeCompte=:x");
+	public List<Operation> consulterOperations(String codeCpte, int pos, int nbOp) {
+		Query req = em.createQuery("select o from Operation o where o.compte.codeCompte=:x order by o.dateOperation desc");
 		req.setParameter("x", codeCpte);
+		req.setFirstResult(pos);
+		req.setMaxResults(nbOp);
 		return req.getResultList();
 	}
 
@@ -129,6 +131,13 @@ public class BanqueDaoImplementation implements IBanqueDao {
 		Query req = em.createQuery("select e from Employe e where e.groupes.codeGroupe = :x");
 		req.setParameter("x", codeGr);
 		return req.getResultList();
+	}
+
+	@Override
+	public long getNombreOperations(String codeCpte) {
+		Query req = em.createQuery("select count(o) from Operation o where o.codeCompte = :x");
+		req.setParameter("x", codeCpte);
+		return req.getFirstResult();
 	}
 
 }

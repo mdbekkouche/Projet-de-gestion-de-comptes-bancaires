@@ -24,7 +24,7 @@ public class BanqueController {
 	public String index(Model model) {
 		model.addAttribute("banqueForm", new BanqueForm());
 		return "banque";
-	}
+	}	
 	
 	@RequestMapping(value="/chargerCompte")
 	public String chargerCompte(@Valid BanqueForm bf, BindingResult bindingResult, Model model) {
@@ -32,41 +32,47 @@ public class BanqueController {
 		if (bindingResult.hasErrors()) {
 			return "banque";
 		}
-		try {
-			Compte compte = metier.consulterCompte(bf.getCode());
-			bf.setTypeCompte(compte.getClass().getSimpleName());
-			bf.setCompte(compte);
-			List<Operation> ops = metier.consulterOperations(bf.getCode());
-			bf.setOperations(ops);
-		} catch (Exception e) {
-			bf.setException(e.getMessage());
-		}
+		chargerCompte(bf);
 		model.addAttribute("banqueForm", bf);
 		return "banque";
 	}
 	
 	@RequestMapping(value="/saveOperation")
-	public String saveOperation(BanqueForm bf) {
-		if (bf.getAction() != null) {
-			if (bf.getTypeOperation().equals("VERSEMENT")) {
-				metier.verser(bf.getMontant(), bf.getCode(), 1L);
-			} else if (bf.getTypeOperation().equals("RETRAIT")) {
-				metier.retirer(bf.getMontant(), bf.getCode(), 1L);
-			} else if (bf.getTypeOperation().equals("VIREMENT")) {
-				metier.virement(bf.getMontant(), bf.getCode(), bf.getCode2(),
-						1L);
+	public String saveOperation(@Valid BanqueForm bf, BindingResult bindingResult) {
+		
+			try {
+				if (bindingResult.hasErrors()) {
+					return "banque";
+				}
+				if (bf.getAction() != null) {
+					if (bf.getTypeOperation().equals("VERSEMENT")) {
+						metier.verser(bf.getMontant(), bf.getCode(), 1L);
+					} else if (bf.getTypeOperation().equals("RETRAIT")) {
+						metier.retirer(bf.getMontant(), bf.getCode(), 1L);
+					} else if (bf.getTypeOperation().equals("VIREMENT")) {
+						metier.virement(bf.getMontant(), bf.getCode(),
+								bf.getCode2(), 1L);
+					}
+				}
+			} catch (Exception e) {
+				bf.setException(e.getMessage());
 			}
-		}
-		try {
-			Compte compte = metier.consulterCompte(bf.getCode());
-			bf.setTypeCompte(compte.getClass().getSimpleName());
-			bf.setCompte(compte);
-			List<Operation> ops = metier.consulterOperations(bf.getCode());
-			bf.setOperations(ops);
-		} catch (Exception e) {
-			bf.setException(e.getMessage());
-		}
+			chargerCompte(bf);
+			
 		return "banque";
     }
+	
+	public void chargerCompte(BanqueForm bf) {
+			try {
+				Compte compte = metier.consulterCompte(bf.getCode());
+				bf.setTypeCompte(compte.getClass().getSimpleName());
+				bf.setCompte(compte);
+				List<Operation> ops = metier.consulterOperations(bf.getCode(), 0, 5);
+				bf.setOperations(ops);
+			} catch (Exception e) {
+				bf.setException(e.getMessage());
+			}
+
+	}
 
 }

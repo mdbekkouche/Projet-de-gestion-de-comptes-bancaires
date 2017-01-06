@@ -16,7 +16,8 @@ public interface IBanqueDao {
 	public Compte addCompte(Compte cp,Long codeCli, Long codeEmp);
 	public Operation addOperation(Operation op, String codeCpte,Long codeEmp);
 	public Compte consulterCompte(String codeCpte);
-	public List<Operation> consulterOperations(String codeCpte);
+	public List<Operation> consulterOperations(String codeCpte, int position, int nbOp);
+	public long getNombreOperations(String codeCpte);
 	public Client consulterClient(Long codeCli);
 	public List<Client> consulterClients(String mc);
 	public List<Compte> getComptesParClient(Long codeCli);

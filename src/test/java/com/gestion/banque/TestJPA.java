@@ -63,18 +63,18 @@ public class TestJPA {
 		System.out.println("Client " + compte.getClient().getNomClient());
 		System.out.println("Employe " + compte.getEmploye().getNomEmploye());
 
-		List<Operation> operations = metier.consulterOperations("CC1");
-
-		for (Operation operation : operations) {
-			System.out.println("Num de l'opération : "
-					+ operation.getNumeroOperation());
-			System.out.println("Date de création : "
-					+ operation.getDateOperation());
-			System.out.println("Employe : "
-					+ operation.getEmploye().getNomEmploye());
-			System.out.println("Type de l'opération : "
-					+ operation.getClass().getSimpleName());
-		}
+////		List<Operation> operations = metier.consulterOperations("CC1");
+//
+//		for (Operation operation : operations) {
+//			System.out.println("Num de l'opération : "
+//					+ operation.getNumeroOperation());
+//			System.out.println("Date de création : "
+//					+ operation.getDateOperation());
+//			System.out.println("Employe : "
+//					+ operation.getEmploye().getNomEmploye());
+//			System.out.println("Type de l'opération : "
+//					+ operation.getClass().getSimpleName());
+//		}
 
 	}
 

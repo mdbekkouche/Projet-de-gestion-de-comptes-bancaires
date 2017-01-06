@@ -20,7 +20,7 @@ public interface IBanqueMetier {
 	public void virement(double mt,String cpte1,String cpte2,Long codeEmp);
 	
 	public Compte consulterCompte(String codeCpte);
-	public List<Operation> consulterOperations(String codeCpte);
+	public List<Operation> consulterOperations(String codeCpte, int pos, int nbOp);
 	public Client consulterClient(Long codeCli);
 	public List<Client> consulterClients(String mc);
 	public List<Compte> getComptesParClient(Long codeCli);
@@ -28,5 +28,7 @@ public interface IBanqueMetier {
 	public List<Employe> getEmployes();
 	public List<Groupe> getGroupes();
 	public List<Employe> getEmployesByGroupe(Long codeGr);
+	
+	public long getNombreOperations(String codeCpte);
 
 }

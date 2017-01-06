@@ -75,10 +75,7 @@ public class BanqueMetierImplementation implements IBanqueMetier {
 		return dao.consulterCompte(codeCpte);
 	}
 
-	@Override
-	public List<Operation> consulterOperations(String codeCpte) {
-		return dao.consulterOperations(codeCpte);
-	}
+	
 
 	@Override
 	public Client consulterClient(Long codeCli) {
@@ -113,6 +110,16 @@ public class BanqueMetierImplementation implements IBanqueMetier {
 	@Override
 	public List<Employe> getEmployesByGroupe(Long codeGr) {
 		return dao.getEmployesByGroupe(codeGr);
+	}
+
+	@Override
+	public List<Operation> consulterOperations(String codeCpte, int pos, int nbOp) {
+		return dao.consulterOperations(codeCpte,pos, nbOp);
+	}
+
+	@Override
+	public long getNombreOperations(String codeCpte) {
+		return dao.getNombreOperations(codeCpte);
 	}
 
 }
