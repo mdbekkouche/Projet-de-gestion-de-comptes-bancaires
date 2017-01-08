@@ -8,11 +8,26 @@ div {
 .tab1 th{
 	border: 1px dotted gray;
 	background: pink;
-	padding: 5px
+	padding: 5px;
 }
 
 .tab1 td{
 	border: 1px dotted gray;
 	background: white;
-	padding: 5px
+	padding: 5px;
+}
+
+span.current {
+ 	border: 1px dotted gray;
+ 	padding: 5px;
+ 	margin: 5px;
+	background: pink;
+	
+}
+
+span.autrePage {
+ 	border: 1px dotted gray;
+ 	padding: 10px;
+ 	margin: 10px;
+	background: white;
 }

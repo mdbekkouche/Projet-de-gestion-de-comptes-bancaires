@@ -26,7 +26,28 @@ public class BanqueForm {
 	private String Code2 = "xxx";
 	private String action;
 	
+	private int page = 0;
+	private int nbLignes = 3;
+	private int nbpages;
 	
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getNbLignes() {
+		return nbLignes;
+	}
+	public void setNbLignes(int nbLignes) {
+		this.nbLignes = nbLignes;
+	}
+	public int getNbpages() {
+		return nbpages;
+	}
+	public void setNbpages(int nbpages) {
+		this.nbpages = nbpages;
+	}
 	public String getAction() {
 		return action;
 	}

@@ -67,8 +67,11 @@ public class BanqueController {
 				Compte compte = metier.consulterCompte(bf.getCode());
 				bf.setTypeCompte(compte.getClass().getSimpleName());
 				bf.setCompte(compte);
-				List<Operation> ops = metier.consulterOperations(bf.getCode(), 0, 5);
+				int pos = bf.getNbLignes() * bf.getPage();				
+				List<Operation> ops = metier.consulterOperations(bf.getCode(), pos, bf.getNbLignes());
 				bf.setOperations(ops);
+				long npOp = metier.getNombreOperations(bf.getCode());
+				bf.setNbpages((int)(npOp/bf.getNbLignes())+1);
 			} catch (Exception e) {
 				bf.setException(e.getMessage());
 			}

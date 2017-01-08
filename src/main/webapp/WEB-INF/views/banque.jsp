@@ -121,6 +121,21 @@
 				</tr>
 				</c:forEach>
 			</table>
+			<div>
+				<c:forEach begin="0" end="${ banqueForm.nbpages - 1 }" var="page">
+					<c:choose>
+						<c:when test="${ page == banqueForm.page }">
+							<span class="current">Page ${ page }</span>
+						</c:when>
+						<c:otherwise>
+                    		<span class="autrePage">
+                    			<a href="chargerCompte?page=${ page }&code=${ banqueForm.code }">Page ${ page }</a>
+                    		</span>
+                    	</c:otherwise>
+					</c:choose>
+                    
+				</c:forEach>
+			</div>
 		</div>
 	</c:if>
 
